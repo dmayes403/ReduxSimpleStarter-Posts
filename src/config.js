@@ -1,0 +1,1 @@
+export default '?key=PAPERCLIP1234'
