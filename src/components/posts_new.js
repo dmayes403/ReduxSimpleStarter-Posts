@@ -5,8 +5,13 @@ import { Field, reduxForm } from 'redux-form';
 
 class PostsNew extends Component {
     renderField(field) {
+        // const { meta } = field; // pulling meta off of field by destructuring/refactoring - it would typically look like 'field.meta.touched or field.meta.error'
+        const { meta: { touched, error } } = field; // pulling meta.touched and meta.error off of field by destructuring/refactoring - it would typically look like 'field.meta.touched or field.meta.error'
+        const className = `form-group ${touched && error ? 'has-danger' : ''}`
+
         return (
-            <div className="form-group">
+            // using className variable created above
+            <div className={className}>
                 <label>{field.label}</label>
                 <input
                     className="form-control"
@@ -14,7 +19,10 @@ class PostsNew extends Component {
                     // this wires up the event handlers to the between the input and the redux field
                     {...field.input}
                 />
-                {field.meta.error}
+                <div className="text-help">
+                    {touched ? error : ''}
+                </div>
+                {/* this displays the errors */}
             </div>
         );
     }
@@ -53,6 +61,7 @@ class PostsNew extends Component {
 }
 
 function validate(values) {
+    // input fields are pristine, touched, or invalid
     // Console.log(values) -> { title: 'asdf', categories: 'asdf', content: 'asdf' }
     const errors = {};
 
