@@ -6,8 +6,9 @@ export default function(state = {}, action) {
         case FETCH_POSTS:
             return _.mapKeys(action.payload.data, 'id');
         case FETCH_POST:
-            const post = action.payload.data;
-            const { payload: { data }} = action;
+            const { data } = action.payload;
+            // ^^^ destructoring
+
             // const newState = { ...state }
             // newState[post.id] = post;
             // return newState;

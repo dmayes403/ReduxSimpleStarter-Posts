@@ -1,17 +1,31 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchPost } from '../actions';
+import { Link } from 'react-router-dom'; 
 
 class PostsShow extends Component {
     componentDidMount() {
-        const { id } = this.props.match.params;
-        this.props.fetchPost();
+        // if (!this.props.post) {
+            const { id } = this.props.match.params;
+            console.log(id);
+            this.props.fetchPost(id);
+        // }
+        // ^^ if statement only necessary if very conscious of network traffic
     }
 
     render() {
+        const { post } = this.props;
+
+        if (!post) {
+            return <div>Loading...</div>
+        }
+
         return (
             <div>
-                Posts Show!
+                <Link to="/">Back To Index</Link>
+                <h3>{post.title}</h3>
+                <h6>Categories: {post.categories}</h6>
+                <p>{post.content}</p>
             </div>
         );
     }
