@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 // redux-form.com is an excellent source for form info
 // use "Field" to wire up specific a field input in the component (it knows all of the event handlers)
 import { Field, reduxForm } from 'redux-form';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { createPost } from '../actions';
 
 class PostsNew extends Component {
     renderField(field) {
@@ -29,6 +32,7 @@ class PostsNew extends Component {
 
     onSubmit(values) {
         console.log(values);
+        this.props.createPost(values);
     }
 
     render() {
@@ -55,6 +59,7 @@ class PostsNew extends Component {
                     component={this.renderField}
                 />
                 <button type="submit" className="btn btn-primary">Submit</button>
+                <Link to="/" className="btn btn-danger">Cancel</Link>
             </form>
         )
     }
@@ -86,4 +91,7 @@ function validate(values) {
 export default reduxForm({
     validate, // equal to validate:validate
     form: 'PostsNewForm'
-})(PostsNew);
+})(
+    connect(null, { createPost })(PostsNew)
+    // this is chaining multiple helpers together. The actions are always the second parameter of the connect function (state is first)
+);
