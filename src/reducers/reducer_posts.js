@@ -1,8 +1,12 @@
-import { FETCH_POSTS, FETCH_POST } from '../actions';
+import { FETCH_POSTS, FETCH_POST, DELETE_POST } from '../actions';
 import _ from 'lodash';
 
 export default function(state = {}, action) {
     switch(action.type) {
+        case DELETE_POST:
+            return _.omit(state, action.payload)
+                // this looks on state for a post that has a key of action.payload
+                // this works because we are using .mapKeys to pull out the id as a key
         case FETCH_POSTS:
             return _.mapKeys(action.payload.data, 'id');
         case FETCH_POST:

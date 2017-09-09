@@ -19,6 +19,7 @@ ReactDOM.render(
     <BrowserRouter>
       <div>
         <Switch>
+          {/* switch is necessary to switch between specific routes and only have one show up at once */}
           {/* put the most specific route at the top */}
           <Route path="/posts/new" component={PostsNew} /> 
           <Route path="/posts/:id" component={PostsShow} /> 
